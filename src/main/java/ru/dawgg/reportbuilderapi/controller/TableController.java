@@ -6,7 +6,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.dawgg.reportbuilderapi.model.table.Table;
-import ru.dawgg.reportbuilderapi.model.tablequery.Query;
 
 import javax.validation.Valid;
 import ru.dawgg.reportbuilderapi.service.TableService;

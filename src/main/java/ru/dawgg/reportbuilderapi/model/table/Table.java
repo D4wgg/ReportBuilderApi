@@ -2,17 +2,18 @@ package ru.dawgg.reportbuilderapi.model.table;
 
 import lombok.*;
 
-import javax.validation.constraints.AssertTrue;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.util.List;
 
 @Value
 @Builder
 public class Table {
-    @NotEmpty(message = "table name cant be an empty")
+    @NotBlank(message = "table name cant be empty")
     String tableName;
+    @NotNull(message = "table` columns amount should be specified")
     Integer columnsAmount;
+
+    @NotBlank(message = "table should have a primary key")
     String primaryKey;
     @Size(min = 1)
     List<ColumnInfo> columnInfos;

@@ -1,4 +1,4 @@
-package ru.dawgg.reportbuilderapi.model.tablequery;
+package ru.dawgg.reportbuilderapi.dto;
 
 import lombok.Builder;
 import lombok.Value;

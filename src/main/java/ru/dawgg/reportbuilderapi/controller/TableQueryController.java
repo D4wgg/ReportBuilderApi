@@ -2,7 +2,7 @@ package ru.dawgg.reportbuilderapi.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.dawgg.reportbuilderapi.model.tablequery.Query;
+import ru.dawgg.reportbuilderapi.model.query.Query;
 
 import java.util.List;
 

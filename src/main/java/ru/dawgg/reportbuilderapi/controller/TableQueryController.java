@@ -7,17 +7,17 @@ import ru.dawgg.reportbuilderapi.model.tablequery.Query;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/table-query")
+@RequestMapping("/api/table-query")
 public class TableQueryController {
 
     @PostMapping("/add-new-query-to-table")
-    public ResponseEntity.BodyBuilder addNewQuery(@RequestParam Query query) {
+    public ResponseEntity.BodyBuilder addNewQuery(@RequestBody Query query) {
 //        service.save(query);
         return ResponseEntity.ok();
     }
 
     @PutMapping("/modify-query-in-table")
-    public ResponseEntity.BodyBuilder modifyQueryInTable(@RequestParam Query query) {
+    public ResponseEntity.BodyBuilder modifyQueryInTable(@RequestBody Query query) {
 //        service.update(query);
         return ResponseEntity.ok();
     }

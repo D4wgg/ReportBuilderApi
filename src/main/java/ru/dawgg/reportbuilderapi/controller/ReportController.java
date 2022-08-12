@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.dawgg.reportbuilderapi.model.report.Report;
 
 @RestController
-@RequestMapping("api/report")
+@RequestMapping("/api/report")
 public class ReportController {
 
     @GetMapping("/get-report-by-id/{id}")

@@ -7,7 +7,7 @@ import ru.dawgg.reportbuilderapi.model.tablequery.QueryDto;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/single-query")
+@RequestMapping("/api/single-query")
 public class SingleQueryController {
 
     @PostMapping("/add-new-query")

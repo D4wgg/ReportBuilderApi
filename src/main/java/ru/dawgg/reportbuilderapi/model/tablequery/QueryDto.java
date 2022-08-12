@@ -1,6 +1,11 @@
 package ru.dawgg.reportbuilderapi.model.tablequery;
 
+import lombok.Builder;
+import lombok.Value;
+
+@Value
+@Builder
 public class QueryDto {
-    private Integer id;
-    private String query;
+    Integer id;
+    String query;
 }

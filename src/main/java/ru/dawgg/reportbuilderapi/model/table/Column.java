@@ -1,6 +1,11 @@
 package ru.dawgg.reportbuilderapi.model.table;
 
+import lombok.*;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor@Builder
 public class Column {
-    private String title;
-    private ColumnType type;
+    String title;
+    ColumnType type;
 }

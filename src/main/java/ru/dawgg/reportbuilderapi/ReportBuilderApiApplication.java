@@ -9,5 +9,4 @@ public class ReportBuilderApiApplication {
     public static void main(String[] args) {
         SpringApplication.run(ReportBuilderApiApplication.class, args);
     }
-
 }

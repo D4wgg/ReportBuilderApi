@@ -4,8 +4,9 @@ import lombok.*;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor@Builder
-public class Column {
+@AllArgsConstructor
+@Builder
+public class ColumnInfo {
     String title;
-    ColumnType type;
+    String type;
 }

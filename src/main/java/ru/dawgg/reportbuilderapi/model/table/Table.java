@@ -12,13 +12,13 @@ import java.util.List;
 public class Table {
     @NotEmpty(message = "table name cant be an empty")
     String tableName;
-    Integer columnAmount;
+    Integer columnsAmount;
     String primaryKey;
     @Size(min = 1)
-    List<Column> columnList;
+    List<ColumnInfo> columnInfos;
 
-//    @AssertTrue
-//    private boolean isColumnAmountEqualsColumnListSize() {
-//        return columnAmount == columnList.size();
-//    }
+    @AssertTrue(message = "columnAmount must be equal to columnInfos size")
+    private boolean isColumnAmountEqualsColumnListSize() {
+        return columnsAmount == columnInfos.size();
+    }
 }

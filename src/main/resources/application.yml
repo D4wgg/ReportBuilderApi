@@ -1,0 +1,25 @@
+spring:
+  main:
+    banner-mode: off
+  datasource:
+    url: jdbc:h2:mem:reporter
+    driver-class-name: org.h2.Driver
+    username: login
+    password:
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create
+#  sql:
+#    init:
+#      data-locations: classpath:example.sql
+  h2:
+    console:
+      enabled: true
+#      access http://localhost:8080/h2-console
+
+springdoc:
+  packages-to-scan: ru.dawgg.reportbuilderapi.controller
+  paths-to-match: /**
+  api-docs:
+    path: /api-docs

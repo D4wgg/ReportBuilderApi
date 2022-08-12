@@ -1,25 +1,27 @@
 package ru.dawgg.reportbuilderapi.controller;
 
+import static org.springframework.http.HttpStatus.CREATED;
+
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.dawgg.reportbuilderapi.model.table.Table;
 import ru.dawgg.reportbuilderapi.model.tablequery.Query;
 
 import javax.validation.Valid;
+import ru.dawgg.reportbuilderapi.service.TableService;
 
 @RestController
 @RequestMapping("/api/table")
+@RequiredArgsConstructor
 public class TableController {
 
-    @PostMapping("/create-table")
-    public Table createTable(@RequestBody @Valid Table table) {
-//        service.save(table);
-        return table;
-    }
+    private final TableService tableService;
 
-    @PostMapping("/test")
-    public String returnStr(@RequestBody String str) {
-        return str;
+    @PostMapping("/create-table")
+    public ResponseEntity<Void> createTable(@RequestBody @Valid Table table) {
+        tableService.createTable(table);
+        return new ResponseEntity<>(CREATED);
     }
 
     @GetMapping("/get-table-by-name/{name}")

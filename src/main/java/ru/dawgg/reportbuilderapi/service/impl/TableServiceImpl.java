@@ -17,4 +17,8 @@ public class TableServiceImpl implements TableService {
         tableRepository.createTable(table);
     }
 
+    @Override
+    public void dropTable(String name) {
+        tableRepository.dropTable(name);
+    }
 }

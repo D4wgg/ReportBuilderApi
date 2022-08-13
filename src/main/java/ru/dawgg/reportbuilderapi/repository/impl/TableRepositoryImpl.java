@@ -78,9 +78,8 @@ public class TableRepositoryImpl implements TableRepository {
 
     @Override
     public boolean isExist(String name) {
-        var tables = jdbcTemplate
-                .query("show tables", (rs, rowNum) -> rs.getString("table_name"));
-        return tables.stream().anyMatch(s -> s.equalsIgnoreCase(name));
+        return showTables().stream()
+                .anyMatch(s -> s.equalsIgnoreCase(name));
     }
 
     @Override

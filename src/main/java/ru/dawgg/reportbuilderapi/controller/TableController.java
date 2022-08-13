@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.*;
 import ru.dawgg.reportbuilderapi.model.table.Table;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Size;
+
 import ru.dawgg.reportbuilderapi.service.TableService;
 
 @RestController
@@ -24,12 +26,12 @@ public class TableController {
     }
 
     @GetMapping("/get-table-by-name/{name}")
-    public ResponseEntity<Table> getTableByName(@PathVariable String name) {
+    public ResponseEntity<Table> getTableByName(@PathVariable @Size(max = 50) String name) {
         return ResponseEntity.ok(tableService.getTableByName(name));
     }
 
     @DeleteMapping("/drop-table-by-name/{name}")
-    public ResponseEntity<Void> dropTableByName(@PathVariable String name) {
+    public ResponseEntity<Void> dropTableByName(@PathVariable @Size(max = 50) String name) {
         tableService.dropTable(name);
         return new ResponseEntity<>(CREATED);
     }

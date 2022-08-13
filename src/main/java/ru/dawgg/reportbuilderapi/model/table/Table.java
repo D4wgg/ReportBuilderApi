@@ -1,5 +1,7 @@
 package ru.dawgg.reportbuilderapi.model.table;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import java.util.Objects;
 import javax.validation.Valid;
 import lombok.*;
@@ -12,6 +14,7 @@ import ru.dawgg.reportbuilderapi.model.table.annotation.ValidFieldName;
 
 @Value
 @Builder
+@JsonInclude(Include.NON_NULL)
 public class Table {
 
     @UniqueTableName

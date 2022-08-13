@@ -1,6 +1,7 @@
 package ru.dawgg.reportbuilderapi.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
 import ru.dawgg.reportbuilderapi.model.table.Table;
 import ru.dawgg.reportbuilderapi.repository.TableRepository;
@@ -21,4 +22,11 @@ public class TableServiceImpl implements TableService {
     public void dropTable(String name) {
         tableRepository.dropTable(name);
     }
+
+    @Override
+    @SneakyThrows
+    public Table getTableByName(String tableName) {
+        return tableRepository.findTableByName(tableName);
+    }
+
 }

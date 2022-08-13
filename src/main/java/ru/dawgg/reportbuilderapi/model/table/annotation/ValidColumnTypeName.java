@@ -6,13 +6,13 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
-import ru.dawgg.reportbuilderapi.model.table.validator.ValidTableNameValidator;
+import ru.dawgg.reportbuilderapi.model.table.validator.ValidColumnTypeNameValidator;
 
-@Target({ElementType.FIELD, ElementType.PARAMETER})
+@Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy = ValidTableNameValidator.class)
-public @interface ValidFieldName {
-    String message() default "Invalid field name";
+@Constraint(validatedBy = ValidColumnTypeNameValidator.class)
+public @interface ValidColumnTypeName {
+    String message() default "Invalid column type name";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 }

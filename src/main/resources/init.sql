@@ -1,0 +1,1 @@
+create table sample(id int4, name varchar(35), some_field varchar(1000), flag boolean, primary key (id))

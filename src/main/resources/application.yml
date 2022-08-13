@@ -10,12 +10,14 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: create
-#  sql:
-#    init:
-#      data-locations: classpath:example.sql
+  sql:
+    init:
+      data-locations: classpath:init.sql
   h2:
     console:
       enabled: true
+      settings:
+        web-allow-others: true
 #      access http://localhost:8080/h2-console
 
 springdoc:

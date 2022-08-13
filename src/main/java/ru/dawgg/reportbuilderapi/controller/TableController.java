@@ -24,15 +24,14 @@ public class TableController {
     }
 
     @GetMapping("/get-table-by-name/{name}")
-    public Table getTableByName(@PathVariable String name) {
-//        return service.findTableByName(String name);
-        return Table.builder().tableName(name).build();
+    public ResponseEntity<Table> getTableByName(@PathVariable String name) {
+        return ResponseEntity.ok(tableService.getTableByName(name));
     }
 
     @DeleteMapping("/drop-table-by-name/{name}")
-    public ResponseEntity.BodyBuilder dropTableByName(@PathVariable String name) {
-//        service.deleteByName(String name);
-        return ResponseEntity.ok();
+    public ResponseEntity<Void> dropTableByName(@PathVariable String name) {
+        tableService.dropTable(name);
+        return new ResponseEntity<>(CREATED);
     }
 
 

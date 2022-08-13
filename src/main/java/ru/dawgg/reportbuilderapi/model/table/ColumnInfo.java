@@ -5,6 +5,7 @@ import lombok.*;
 
 import javax.validation.constraints.NotBlank;
 import ru.dawgg.reportbuilderapi.RegexUtil;
+import ru.dawgg.reportbuilderapi.model.table.annotation.ValidColumnTypeName;
 import ru.dawgg.reportbuilderapi.model.table.annotation.ValidFieldName;
 
 @Data
@@ -17,7 +18,7 @@ public class ColumnInfo {
     @NotBlank(message = "column should have a title")
     String title;
 
-    @Pattern(regexp = RegexUtil.COLUMN_TYPE_REGEX, message = "Invalid column type")
+    @ValidColumnTypeName
     @NotBlank(message = "column should have a type")
     String type;
 }

@@ -10,6 +10,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import ru.dawgg.reportbuilderapi.exception.InvalidFieldNameException;
+import ru.dawgg.reportbuilderapi.exception.InvalidIdException;
 import ru.dawgg.reportbuilderapi.exception.NoSuchTableException;
 import ru.dawgg.reportbuilderapi.exception.TableAlreadyExistsException;
 
@@ -19,6 +20,11 @@ public class ControllerExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorMessage> validationExceptionHandler(MethodArgumentNotValidException ex) {
+        return commonMessage(ex, HttpStatus.NOT_ACCEPTABLE);
+    }
+
+    @ExceptionHandler(InvalidIdException.class)
+    public ResponseEntity<ErrorMessage> invalidIdExceptionHandler(InvalidIdException ex) {
         return commonMessage(ex, HttpStatus.NOT_ACCEPTABLE);
     }
 

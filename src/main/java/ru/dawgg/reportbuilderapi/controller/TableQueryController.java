@@ -1,23 +1,30 @@
 package ru.dawgg.reportbuilderapi.controller;
 
+import static org.springframework.http.HttpStatus.CREATED;
+
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.dawgg.reportbuilderapi.model.query.Query;
+import ru.dawgg.reportbuilderapi.model.query.TableQuery;
 
 import java.util.List;
+import ru.dawgg.reportbuilderapi.service.TableQueryService;
 
 @RestController
 @RequestMapping("/api/table-query")
+@RequiredArgsConstructor
 public class TableQueryController {
 
+    private final TableQueryService tableQueryService;
+
     @PostMapping("/add-new-query-to-table")
-    public ResponseEntity.BodyBuilder addNewQuery(@RequestBody Query query) {
-//        service.save(query);
-        return ResponseEntity.ok();
+    public ResponseEntity<Void> addNewQuery(@RequestBody TableQuery request) {
+        tableQueryService.createTableQuery(request);
+        return new ResponseEntity<>(CREATED);
     }
 
     @PutMapping("/modify-query-in-table")
-    public ResponseEntity.BodyBuilder modifyQueryInTable(@RequestBody Query query) {
+    public ResponseEntity.BodyBuilder modifyQueryInTable(@RequestBody TableQuery request) {
 //        service.update(query);
         return ResponseEntity.ok();
     }
@@ -29,19 +36,19 @@ public class TableQueryController {
     }
 
     @GetMapping("/get-all-queries-by-table-name/{name}")
-    public List<Query> getAllQueriesByTableName(@PathVariable("name") String name) {
+    public List<TableQuery> getAllQueriesByTableName(@PathVariable("name") String name) {
 //        return service.findAllByTableName(name);
         return null;
     }
 
     @GetMapping("/get-table-query_by-id/{id}")
-    public Query getQueryById(@PathVariable("id") Integer id) {
+    public TableQuery getQueryById(@PathVariable("id") Integer id) {
 //        return service.findById(id);
         return null;
     }
 
     @GetMapping("/get-all-table-queries")
-    public List<Query> getAllTableQueries() {
+    public List<TableQuery> getAllTableQueries() {
 //        return tableService.findAll()
 //                .stream()
 //                .flatMap(Table::getQueries);

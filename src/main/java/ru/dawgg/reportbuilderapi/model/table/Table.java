@@ -2,15 +2,17 @@ package ru.dawgg.reportbuilderapi.model.table;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import java.util.List;
 import java.util.Objects;
 import javax.validation.Valid;
-import lombok.*;
-
-import javax.validation.constraints.*;
-import java.util.List;
-import ru.dawgg.reportbuilderapi.RegexUtil;
-import ru.dawgg.reportbuilderapi.model.table.annotation.UniqueTableName;
-import ru.dawgg.reportbuilderapi.model.table.annotation.ValidFieldName;
+import javax.validation.constraints.AssertTrue;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import lombok.Builder;
+import lombok.Value;
+import ru.dawgg.reportbuilderapi.model.annotation.UniqueTableName;
+import ru.dawgg.reportbuilderapi.model.annotation.ValidFieldName;
 
 @Value
 @Builder

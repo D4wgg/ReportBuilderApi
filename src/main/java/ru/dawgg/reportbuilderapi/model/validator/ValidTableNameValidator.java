@@ -1,10 +1,10 @@
-package ru.dawgg.reportbuilderapi.model.table.validator;
+package ru.dawgg.reportbuilderapi.model.validator;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import ru.dawgg.reportbuilderapi.RegexUtil;
 import ru.dawgg.reportbuilderapi.exception.InvalidFieldNameException;
-import ru.dawgg.reportbuilderapi.model.table.annotation.ValidFieldName;
+import ru.dawgg.reportbuilderapi.model.annotation.ValidFieldName;
 
 public class ValidTableNameValidator implements ConstraintValidator<ValidFieldName, String> {
 

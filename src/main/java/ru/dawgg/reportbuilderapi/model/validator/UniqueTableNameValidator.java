@@ -1,12 +1,11 @@
-package ru.dawgg.reportbuilderapi.model.table.validator;
+package ru.dawgg.reportbuilderapi.model.validator;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import lombok.RequiredArgsConstructor;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 import ru.dawgg.reportbuilderapi.exception.TableAlreadyExistsException;
-import ru.dawgg.reportbuilderapi.model.table.annotation.UniqueTableName;
+import ru.dawgg.reportbuilderapi.model.annotation.UniqueTableName;
 import ru.dawgg.reportbuilderapi.repository.TableRepository;
 
 @Component

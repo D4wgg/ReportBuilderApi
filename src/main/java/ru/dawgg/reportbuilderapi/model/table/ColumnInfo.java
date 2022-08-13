@@ -1,12 +1,12 @@
 package ru.dawgg.reportbuilderapi.model.table;
 
-import javax.validation.constraints.Pattern;
-import lombok.*;
-
 import javax.validation.constraints.NotBlank;
-import ru.dawgg.reportbuilderapi.RegexUtil;
-import ru.dawgg.reportbuilderapi.model.table.annotation.ValidColumnTypeName;
-import ru.dawgg.reportbuilderapi.model.table.annotation.ValidFieldName;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import ru.dawgg.reportbuilderapi.model.annotation.ValidColumnTypeName;
+import ru.dawgg.reportbuilderapi.model.annotation.ValidFieldName;
 
 @Data
 @NoArgsConstructor

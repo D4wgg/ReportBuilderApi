@@ -2,6 +2,8 @@ package ru.dawgg.reportbuilderapi.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import ru.dawgg.reportbuilderapi.exception.InvalidSingleQueryIdException;
@@ -19,24 +21,32 @@ public class SingleQueryServiceImpl implements SingleQueryService {
     private final JdbcTemplate template;
 
     @Override
-    public void save(SingleQuery singleQuery) {
+    public ResponseEntity<Object> save(SingleQuery singleQuery) {
         repository.save(singleQuery);
+
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @Override
-    public void update(SingleQuery singleQuery) {
+    public ResponseEntity<Object> update(SingleQuery singleQuery) {
         save(singleQuery);
+
+        return ResponseEntity.ok(singleQuery);
     }
 
     @Override
-    public void deleteById(Integer id) {
+    public ResponseEntity<Object> deleteById(Integer id) {
         repository.deleteById(id);
+
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 
     @Override
-    public void executeById(Integer id) {
+    public ResponseEntity<Object> executeById(Integer id) {
         var singleQuery = findById(id);
         template.execute(singleQuery.getQuery());
+
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @Override

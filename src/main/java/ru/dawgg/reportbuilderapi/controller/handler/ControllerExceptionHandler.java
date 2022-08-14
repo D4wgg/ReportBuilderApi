@@ -8,6 +8,7 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.hibernate.exception.JDBCConnectionException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.jdbc.UncategorizedSQLException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingPathVariableException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -100,15 +101,27 @@ public class ControllerExceptionHandler {
     }
 
     @ExceptionHandler(QueryWithTheIdNotFoundException.class)
-    public ResponseEntity<ErrorMessage> queryWithTheIdNotFoundExceptionHandler(QueryWithTheIdNotFoundException ex) {
+    public ResponseEntity<ErrorMessage> queryWithNotFoundExceptionHandler(QueryWithTheIdNotFoundException ex) {
         return commonMessage(ex, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(UncategorizedSQLException.class)
+    public ResponseEntity<ErrorMessage> uncategorizedSqlExceptionHandler(UncategorizedSQLException ex) {
+        return commonMessage(ex, HttpStatus.NOT_ACCEPTABLE);
+    }
+
+    @ExceptionHandler(InvalidColumnTypeNameException.class)
+    public ResponseEntity<ErrorMessage> invalidColumnTypeNameExceptionHandler(InvalidColumnTypeNameException ex) {
+        return commonMessage(ex, HttpStatus.NOT_ACCEPTABLE);
     }
 
     private ResponseEntity<ErrorMessage> commonMessage(Exception ex, HttpStatus httpStatus) {
         var message = ex.getMessage();
         log.error(message, ex);
         return new ResponseEntity<>(
-                ErrorMessage.builder().message(message).stackTrace(ExceptionUtils.getStackTrace(ex)).build(),
+                ErrorMessage.builder()
+                        .message(message)
+                        .stackTrace(ExceptionUtils.getStackTrace(ex)).build(),
                 httpStatus
         );
     }

@@ -12,6 +12,7 @@ import ru.dawgg.reportbuilderapi.exception.TableNotFoundException;
 import ru.dawgg.reportbuilderapi.model.table.ColumnInfo;
 import ru.dawgg.reportbuilderapi.model.table.Table;
 import ru.dawgg.reportbuilderapi.repository.TableRepository;
+import ru.dawgg.reportbuilderapi.util.MatchingUtil;
 
 @Repository
 @RequiredArgsConstructor
@@ -44,7 +45,10 @@ public class TableRepositoryImpl implements TableRepository {
             while(columns.next()) {
                 var columnName = columns.getString("column_name");
                 var columnType = JDBCType.valueOf(columns.getInt("data_type")).getName();
-                columnsInfos.add(ColumnInfo.builder().title(columnName).type(columnType).build());
+                columnsInfos.add(ColumnInfo.builder()
+                        .title(columnName)
+                        .type(MatchingUtil.replaceWithStandardIfExists(columnType))
+                        .build());
             }
 
             primaryKeys.next();

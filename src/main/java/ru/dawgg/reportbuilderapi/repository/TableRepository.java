@@ -1,6 +1,5 @@
 package ru.dawgg.reportbuilderapi.repository;
 
-import java.sql.SQLException;
 import java.util.List;
 import ru.dawgg.reportbuilderapi.model.table.Table;
 

@@ -62,7 +62,7 @@ public class SingleQueryServiceImpl implements SingleQueryService {
 
     @SneakyThrows
     private boolean isExistOrThrow(SingleQuery singleQuery) {
-        if (repository.exists(singleQuery)) {
+        if (repository.existsByQueryAndQueryId(singleQuery.getQuery(), singleQuery.getQueryId())) {
             return true;
         } else throw new SingleQueryNotFoundException("The query has not been found");
     }

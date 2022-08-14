@@ -12,11 +12,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingPathVariableException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import ru.dawgg.reportbuilderapi.exception.InvalidFieldNameException;
-import ru.dawgg.reportbuilderapi.exception.InvalidIdException;
-import ru.dawgg.reportbuilderapi.exception.TableNotFoundException;
-import ru.dawgg.reportbuilderapi.exception.TableAlreadyExistsException;
-import ru.dawgg.reportbuilderapi.exception.TableQueryNotFoundException;
+import ru.dawgg.reportbuilderapi.exception.*;
 
 @RestControllerAdvice
 @Slf4j
@@ -74,6 +70,11 @@ public class ControllerExceptionHandler {
 
     @ExceptionHandler(JDBCConnectionException.class)
     public ResponseEntity<ErrorMessage> jdbcConnectionExceptionHandler(JDBCConnectionException ex) {
+        return commonMessage(ex, HttpStatus.NOT_ACCEPTABLE);
+    }
+
+    @ExceptionHandler(SingleQueryNotFoundException.class)
+    public ResponseEntity<ErrorMessage> singleQueryNotFoundExceptionHandler(SingleQueryNotFoundException ex) {
         return commonMessage(ex, HttpStatus.NOT_ACCEPTABLE);
     }
 

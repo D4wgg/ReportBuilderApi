@@ -5,6 +5,7 @@ import lombok.SneakyThrows;
 import org.springframework.data.util.Streamable;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
+import ru.dawgg.reportbuilderapi.exception.SingleQueryAlreadyExistException;
 import ru.dawgg.reportbuilderapi.exception.SingleQueryNotFoundException;
 import ru.dawgg.reportbuilderapi.model.query.SingleQuery;
 import ru.dawgg.reportbuilderapi.repository.SingleQueryRepository;
@@ -20,16 +21,19 @@ public class SingleQueryServiceImpl implements SingleQueryService {
     private final JdbcTemplate template;
 
     @Override
+    @SneakyThrows
     public void save(SingleQuery singleQuery) {
-        if (isExistOrThrow(singleQuery)) {
+        if (!repository.existsById(singleQuery.getQueryId())) {
             repository.save(singleQuery);
-        }
+        } else throw new SingleQueryAlreadyExistException("query with id - " +
+                singleQuery.getQueryId() +
+                " already exist");
     }
 
     @Override
     public void update(SingleQuery singleQuery) {
-        if (isExistOrThrow(singleQuery)) {
-            save(singleQuery);
+        if (isExistByIdOrThrow(singleQuery.getQueryId())) {
+            repository.save(singleQuery);
         }
     }
 

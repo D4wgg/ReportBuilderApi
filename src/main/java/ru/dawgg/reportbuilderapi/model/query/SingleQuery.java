@@ -1,6 +1,9 @@
 package ru.dawgg.reportbuilderapi.model.query;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -16,7 +19,6 @@ import javax.validation.constraints.Size;
 public class SingleQuery {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @NotNull(message = "query id cannot be null")
     private Integer queryId;
 

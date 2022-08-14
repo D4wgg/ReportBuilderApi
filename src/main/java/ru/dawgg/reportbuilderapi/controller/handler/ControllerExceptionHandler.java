@@ -78,6 +78,11 @@ public class ControllerExceptionHandler {
         return commonMessage(ex, HttpStatus.NOT_ACCEPTABLE);
     }
 
+    @ExceptionHandler(SingleQueryAlreadyExistException.class)
+    public ResponseEntity<ErrorMessage> singleQueryAlreadyExistExceptionHandler(SingleQueryAlreadyExistException ex) {
+        return commonMessage(ex, HttpStatus.NOT_ACCEPTABLE);
+    }
+
     private ResponseEntity<ErrorMessage> commonMessage(Exception ex, HttpStatus httpStatus) {
         var message = ex.getMessage();
         log.error(message, ex);

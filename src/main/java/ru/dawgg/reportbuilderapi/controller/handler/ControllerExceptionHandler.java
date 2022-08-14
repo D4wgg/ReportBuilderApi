@@ -13,6 +13,12 @@ import org.springframework.web.bind.MissingPathVariableException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import ru.dawgg.reportbuilderapi.exception.*;
+import ru.dawgg.reportbuilderapi.exception.InvalidFieldNameException;
+import ru.dawgg.reportbuilderapi.exception.InvalidIdException;
+import ru.dawgg.reportbuilderapi.exception.ReportNotFoundException;
+import ru.dawgg.reportbuilderapi.exception.TableNotFoundException;
+import ru.dawgg.reportbuilderapi.exception.TableAlreadyExistsException;
+import ru.dawgg.reportbuilderapi.exception.TableQueryNotFoundException;
 
 @RestControllerAdvice
 @Slf4j
@@ -53,8 +59,18 @@ public class ControllerExceptionHandler {
         return commonMessage(ex, HttpStatus.NOT_ACCEPTABLE);
     }
 
+    @ExceptionHandler(ReportAlreadyExistsException.class)
+    public ResponseEntity<ErrorMessage> reportAlreadyExceptionHandler(ReportAlreadyExistsException ex) {
+        return commonMessage(ex, HttpStatus.NOT_ACCEPTABLE);
+    }
+
     @ExceptionHandler(TableNotFoundException.class)
     public ResponseEntity<ErrorMessage> tableNotFoundExceptionHandler(TableNotFoundException ex) {
+        return commonMessage(ex, HttpStatus.NOT_ACCEPTABLE);
+    }
+
+    @ExceptionHandler(ReportNotFoundException.class)
+    public ResponseEntity<ErrorMessage> reportNotFoundExceptionHandler(ReportNotFoundException ex) {
         return commonMessage(ex, HttpStatus.NOT_ACCEPTABLE);
     }
 

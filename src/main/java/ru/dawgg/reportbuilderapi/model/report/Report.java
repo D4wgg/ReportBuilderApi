@@ -1,18 +1,38 @@
 package ru.dawgg.reportbuilderapi.model.report;
 
-import ru.dawgg.reportbuilderapi.model.table.Table;
-
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.util.List;
+import javax.persistence.CollectionTable;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
+@Entity
+@javax.persistence.Table(name = "report")
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+@ToString
 public class Report {
-    @NotNull(message = "report id should be specified")
-    private Integer id;
 
-    @NotBlank(message = "report` table amount should be specified")
+    @Id
+    @Column(name = "report_id")
+    private Long id;
+
+    @Column(name = "table_amount")
     private String tableAmount;
 
-    @NotNull(message = "report should have a list of tables")
-    private List<Table> tables;
+    @ElementCollection
+    @CollectionTable(name = "report_table_names", joinColumns = @JoinColumn(name = "report_id"))
+    @Column(name = "table_names")
+    private List<String> tableNames;
 }

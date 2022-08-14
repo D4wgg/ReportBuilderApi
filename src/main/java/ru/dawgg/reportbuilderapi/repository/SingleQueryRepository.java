@@ -6,5 +6,5 @@ import ru.dawgg.reportbuilderapi.model.query.SingleQuery;
 
 @Repository
 public interface SingleQueryRepository extends CrudRepository<SingleQuery, Integer> {
-
+    boolean exists(SingleQuery singleQuery);
 }

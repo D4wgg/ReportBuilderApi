@@ -1,48 +1,55 @@
 package ru.dawgg.reportbuilderapi.controller;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.dawgg.reportbuilderapi.dto.QueryDto;
+import ru.dawgg.reportbuilderapi.model.query.SingleQuery;
+import ru.dawgg.reportbuilderapi.service.SingleQueryService;
 
 import java.util.List;
 
+import static org.springframework.http.HttpStatus.*;
+
 @RestController
 @RequestMapping("/api/single-query")
+@RequiredArgsConstructor
 public class SingleQueryController {
 
+    private final SingleQueryService queryService;
+
     @PostMapping("/add-new-query")
-    public ResponseEntity.BodyBuilder addNewQuery(@RequestBody QueryDto queryDto) {
-//        service.save(queryDto);
-        return ResponseEntity.ok();
+    public ResponseEntity<Void> addNewQuery(@RequestBody SingleQuery singleQuery) {
+        queryService.save(singleQuery);
+        return new ResponseEntity<>(CREATED);
     }
 
     @PutMapping("/modify-query")
-    public ResponseEntity.BodyBuilder modifyQuery(@RequestBody QueryDto queryDto) {
-//        service.update(queryDto);
-        return ResponseEntity.ok();
+    public ResponseEntity<Void> modifyQuery(@RequestBody SingleQuery singleQuery) {
+        queryService.update(singleQuery);
+        return new ResponseEntity<>(OK);
     }
 
     @DeleteMapping("/delete-single-query-by-id/{id}")
-    public ResponseEntity.BodyBuilder deleteSingleQueryById(@PathVariable("id") Integer id) {
-//        service.deleteById(id);
-        return ResponseEntity.ok();
+    public ResponseEntity<Void> deleteSingleQueryById(@PathVariable("id") Integer id) {
+        queryService.deleteById(id);
+        return new ResponseEntity<>(ACCEPTED);
     }
 
     @GetMapping("/execute-single-query-by-id/{id}")
-    public ResponseEntity.BodyBuilder executeSingleQueryById(@PathVariable("id") Integer id) {
-//        execute(id);
-        return ResponseEntity.ok();
+    public ResponseEntity<Void> executeSingleQueryById(@PathVariable("id") Integer id) {
+        queryService.executeById(id);
+        return new ResponseEntity<>(CREATED);
     }
 
     @GetMapping("/get-single-query-by-id/{id}")
-    public QueryDto getSingleQueryById(@PathVariable("id") Integer id) {
-//        return service.findById(id);
-        return null;
+    public SingleQuery getSingleQueryById(@PathVariable("id") Integer id) {
+        return queryService.findById(id);
     }
 
     @GetMapping("/get-all-single-queries")
-    public List<QueryDto> getAllSingleQueries() {
-        return null;
+    public List<SingleQuery> getAllSingleQueries() {
+        return queryService.findAll();
     }
 
 

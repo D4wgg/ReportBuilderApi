@@ -26,7 +26,7 @@ public class ReportController {
 
     @GetMapping("/get-report-by-id/{id}")
     public ResponseEntity<ReportResponse> getReportById(@PathVariable("id") Long id) {
-        return ResponseEntity.ok(reportService.getById(id));
+        return new ResponseEntity<>(reportService.getById(id), CREATED);
     }
 
     @PostMapping("/create-report")

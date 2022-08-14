@@ -9,7 +9,7 @@ import ru.dawgg.reportbuilderapi.model.table.Table;
 @Builder
 public class ReportResponse {
 
-    String id;
+    String reportId;
     String tableAmount;
     List<Table> tables;
 }

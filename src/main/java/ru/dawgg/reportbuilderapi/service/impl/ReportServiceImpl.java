@@ -23,8 +23,8 @@ public class ReportServiceImpl implements ReportService {
 
     @Override
     public void create(ReportRequest reportRequest) {
-        if(reportRepository.existsById(reportRequest.getId()))
-            throw new ReportAlreadyExistsException("Report with id:" + reportRequest.getId() + " already exists");
+        if(reportRepository.existsById(reportRequest.getReportId()))
+            throw new ReportAlreadyExistsException("Report with id:" + reportRequest.getReportId() + " already exists");
 
         var tableNames = reportRequest.getTables().stream()
                 .map(Table::getTableName)
@@ -35,7 +35,7 @@ public class ReportServiceImpl implements ReportService {
                 .toList();
 
         reportRepository.save(Report.builder()
-                .id(reportRequest.getId())
+                .id(reportRequest.getReportId())
                 .tableAmount(reportRequest.getTableAmount())
                 .tableNames(tableNames)
                 .build()
@@ -53,7 +53,7 @@ public class ReportServiceImpl implements ReportService {
                 .toList();
 
         return ReportResponse.builder()
-                .id(String.valueOf(report.getId()))
+                .reportId(String.valueOf(report.getId()))
                 .tableAmount(report.getTableAmount())
                 .tables(tables)
                 .build();

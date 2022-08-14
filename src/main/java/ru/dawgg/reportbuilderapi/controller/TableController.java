@@ -2,8 +2,10 @@ package ru.dawgg.reportbuilderapi.controller;
 
 import static org.springframework.http.HttpStatus.CREATED;
 
+import javax.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.dawgg.reportbuilderapi.model.table.Table;
 
@@ -15,6 +17,7 @@ import ru.dawgg.reportbuilderapi.service.TableService;
 @RestController
 @RequestMapping("/api/table")
 @RequiredArgsConstructor
+@Validated
 public class TableController {
 
     private final TableService tableService;
@@ -26,12 +29,12 @@ public class TableController {
     }
 
     @GetMapping("/get-table-by-name/{name}")
-    public ResponseEntity<Table> getTableByName(@PathVariable @Size(max = 50) String name) {
+    public ResponseEntity<Table> getTableByName(@PathVariable @NotBlank @Size(max = 50) String name) {
         return ResponseEntity.ok(tableService.getByName(name));
     }
 
     @DeleteMapping("/drop-table-by-name/{name}")
-    public ResponseEntity<Void> dropTableByName(@PathVariable @Size(max = 50) String name) {
+    public ResponseEntity<Void> dropTableByName(@PathVariable @NotBlank @Size(max = 50) String name) {
         tableService.removeByName(name);
         return new ResponseEntity<>(CREATED);
     }

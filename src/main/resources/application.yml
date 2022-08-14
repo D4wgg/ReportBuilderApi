@@ -1,6 +1,10 @@
 server:
   port: 9081
 
+logging:
+  level:
+    org.springframework.web.filter.CommonsRequestLoggingFilter: debug
+
 spring:
   main:
     banner-mode: off
@@ -13,9 +17,9 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: create
-  sql:
-    init:
-      data-locations: classpath:init.sql
+#  sql:
+#    init:
+#      data-locations: classpath:init.sql
   h2:
     console:
       enabled: true

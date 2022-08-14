@@ -1,5 +1,7 @@
 package ru.dawgg.reportbuilderapi.controller.handler;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import java.sql.SQLSyntaxErrorException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -7,6 +9,7 @@ import org.hibernate.exception.JDBCConnectionException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingPathVariableException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import ru.dawgg.reportbuilderapi.exception.InvalidFieldNameException;
@@ -21,6 +24,21 @@ public class ControllerExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorMessage> validationExceptionHandler(MethodArgumentNotValidException ex) {
+        return commonMessage(ex, HttpStatus.NOT_ACCEPTABLE);
+    }
+
+    @ExceptionHandler(JsonParseException.class)
+    public ResponseEntity<ErrorMessage> validationExceptionHandler(JsonParseException ex) {
+        return commonMessage(ex, HttpStatus.NOT_ACCEPTABLE);
+    }
+
+    @ExceptionHandler(InvalidFormatException.class)
+    public ResponseEntity<ErrorMessage> invalidFormatExceptionHandler(InvalidFormatException ex) {
+        return commonMessage(ex, HttpStatus.NOT_ACCEPTABLE);
+    }
+
+    @ExceptionHandler(MissingPathVariableException.class)
+    public ResponseEntity<ErrorMessage> missingPathVariableExceptionHandler(MissingPathVariableException ex) {
         return commonMessage(ex, HttpStatus.NOT_ACCEPTABLE);
     }
 

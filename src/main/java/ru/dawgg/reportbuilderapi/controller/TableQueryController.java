@@ -4,8 +4,10 @@ import static org.springframework.http.HttpStatus.ACCEPTED;
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
 
+import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.dawgg.reportbuilderapi.model.query.TableQuery;
 
@@ -15,18 +17,19 @@ import ru.dawgg.reportbuilderapi.service.TableQueryService;
 @RestController
 @RequestMapping("/api/table-query")
 @RequiredArgsConstructor
+@Validated
 public class TableQueryController {
 
     private final TableQueryService tableQueryService;
 
     @PostMapping("/add-new-query-to-table")
-    public ResponseEntity<Void> addNewQuery(@RequestBody TableQuery tableQuery) {
+    public ResponseEntity<Void> addNewQuery(@RequestBody @Valid TableQuery tableQuery) {
         tableQueryService.create(tableQuery);
         return new ResponseEntity<>(CREATED);
     }
 
     @PutMapping("/modify-query-in-table")
-    public ResponseEntity<Void> modifyQueryInTable(@RequestBody TableQuery tableQuery) {
+    public ResponseEntity<Void> modifyQueryInTable(@RequestBody @Valid TableQuery tableQuery) {
         tableQueryService.update(tableQuery);
         return new ResponseEntity<>(OK);
     }

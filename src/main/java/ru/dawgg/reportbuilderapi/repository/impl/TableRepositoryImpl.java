@@ -1,7 +1,6 @@
 package ru.dawgg.reportbuilderapi.repository.impl;
 
 import java.sql.JDBCType;
-import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -29,7 +28,9 @@ public class TableRepositoryImpl implements TableRepository {
     @SneakyThrows
     public Table findByName(String tableName) {
 
-        if(findAll().stream().noneMatch(s -> s.equalsIgnoreCase(tableName))) {
+        var tName = tableName.toUpperCase();
+
+        if(findAll().stream().noneMatch(s -> s.equals(tName))) {
             return Table.builder().build();
         }
 
@@ -37,8 +38,8 @@ public class TableRepositoryImpl implements TableRepository {
         var metaData = jdbcTemplate.getDataSource()
                 .getConnection()
                 .getMetaData();
-        try(var columns = metaData.getColumns(null,null, tableName, null);
-                var primaryKeys = metaData.getPrimaryKeys(null,null, tableName)
+        try(var columns = metaData.getColumns(null,null, tName, null);
+                var primaryKeys = metaData.getPrimaryKeys(null,null, tName)
         ) {
             while(columns.next()) {
                 var columnName = columns.getString("column_name");
@@ -73,9 +74,9 @@ public class TableRepositoryImpl implements TableRepository {
     }
 
     @Override
-    public boolean isExist(String name) {
+    public boolean isExist(String tableName) {
         return findAll().stream()
-                .anyMatch(s -> s.equalsIgnoreCase(name));
+                .anyMatch(s -> s.equalsIgnoreCase(tableName));
     }
 
     @Override

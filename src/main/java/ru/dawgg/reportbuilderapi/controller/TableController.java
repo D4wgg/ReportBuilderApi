@@ -29,12 +29,12 @@ public class TableController {
     }
 
     @GetMapping("/get-table-by-name/{name}")
-    public ResponseEntity<Table> getTableByName(@PathVariable String name) {
+    public ResponseEntity<Table> getTableByName(@PathVariable @NotBlank @Size(max = 50) String name) {
         return ResponseEntity.ok(tableService.getByName(name));
     }
 
-    @DeleteMapping("/drop-table-by-name/{name}")
-    public ResponseEntity<Void> dropTableByName(@PathVariable String name) {
+    @DeleteMapping("/drop-table/{name}")
+    public ResponseEntity<Void> dropTableByName(@PathVariable @NotBlank @Size(max = 50) String name) {
         tableService.removeByName(name);
         return new ResponseEntity<>(CREATED);
     }

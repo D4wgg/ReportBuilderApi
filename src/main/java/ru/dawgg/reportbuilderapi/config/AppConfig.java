@@ -12,7 +12,7 @@ public class AppConfig {
         var filter = new CommonsRequestLoggingFilter();
         filter.setIncludeQueryString(true);
         filter.setIncludePayload(true);
-        filter.setMaxPayloadLength(10000);
+        filter.setMaxPayloadLength(500);
         filter.setIncludeHeaders(false);
         filter.setAfterMessagePrefix("REQUEST DATA : ");
         return filter;

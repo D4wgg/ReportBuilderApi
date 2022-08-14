@@ -80,7 +80,12 @@ public class ControllerExceptionHandler {
 
     @ExceptionHandler(SingleQueryAlreadyExistException.class)
     public ResponseEntity<ErrorMessage> singleQueryAlreadyExistExceptionHandler(SingleQueryAlreadyExistException ex) {
-        return commonMessage(ex, HttpStatus.NOT_ACCEPTABLE);
+        return commonMessage(ex, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(QueryWithTheIdNotFoundException.class)
+    public ResponseEntity<ErrorMessage> queryWithTheIdNotFoundExceptionHandler(QueryWithTheIdNotFoundException ex) {
+        return commonMessage(ex, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     private ResponseEntity<ErrorMessage> commonMessage(Exception ex, HttpStatus httpStatus) {

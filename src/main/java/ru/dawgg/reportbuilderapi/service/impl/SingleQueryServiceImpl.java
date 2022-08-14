@@ -5,6 +5,7 @@ import lombok.SneakyThrows;
 import org.springframework.data.util.Streamable;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
+import ru.dawgg.reportbuilderapi.exception.QueryWithTheIdNotFoundException;
 import ru.dawgg.reportbuilderapi.exception.SingleQueryAlreadyExistException;
 import ru.dawgg.reportbuilderapi.exception.SingleQueryNotFoundException;
 import ru.dawgg.reportbuilderapi.model.query.SingleQuery;
@@ -56,7 +57,7 @@ public class SingleQueryServiceImpl implements SingleQueryService {
     @SneakyThrows
     public SingleQuery findById(Integer id) {
         return repository.findById(id)
-                .orElseThrow(() -> new SingleQueryNotFoundException("Query with the id has not been found"));
+                .orElseThrow(() -> new QueryWithTheIdNotFoundException("Query with the id has not been found"));
     }
 
     @Override
@@ -64,12 +65,6 @@ public class SingleQueryServiceImpl implements SingleQueryService {
         return Streamable.of(repository.findAll()).toList();
     }
 
-    @SneakyThrows
-    private boolean isExistOrThrow(SingleQuery singleQuery) {
-        if (repository.existsByQueryAndQueryId(singleQuery.getQuery(), singleQuery.getQueryId())) {
-            return true;
-        } else throw new SingleQueryNotFoundException("The query has not been found");
-    }
 
     @SneakyThrows
     private boolean isExistByIdOrThrow(Integer id) {

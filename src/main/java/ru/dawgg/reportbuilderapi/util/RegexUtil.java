@@ -1,4 +1,4 @@
-package ru.dawgg.reportbuilderapi;
+package ru.dawgg.reportbuilderapi.util;
 
 import lombok.experimental.UtilityClass;
 

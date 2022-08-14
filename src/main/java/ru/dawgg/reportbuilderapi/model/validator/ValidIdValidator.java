@@ -6,10 +6,10 @@ import ru.dawgg.reportbuilderapi.RegexUtil;
 import ru.dawgg.reportbuilderapi.exception.InvalidIdException;
 import ru.dawgg.reportbuilderapi.model.annotation.ValidId;
 
-public class ValidIdValidator implements ConstraintValidator<ValidId, Integer> {
+public class ValidIdValidator implements ConstraintValidator<ValidId, Long> {
 
     @Override
-    public boolean isValid(Integer id, ConstraintValidatorContext context) {
+    public boolean isValid(Long id, ConstraintValidatorContext context) {
 
         if(!id.toString().matches(RegexUtil.ID_REGEX)) {
             throw new InvalidIdException(context.getDefaultConstraintMessageTemplate() + ": " + id);

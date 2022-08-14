@@ -14,19 +14,18 @@ public class TableServiceImpl implements TableService {
     private final TableRepository tableRepository;
 
     @Override
-    public void createTable(Table table) {
-        tableRepository.createTable(table);
+    public void create(Table table) {
+        tableRepository.create(table);
     }
 
     @Override
-    public void dropTable(String name) {
-        tableRepository.dropTable(name);
+    public void removeByName(String name) {
+        tableRepository.removeByName(name);
     }
 
     @Override
-    @SneakyThrows
-    public Table getTableByName(String tableName) {
-        return tableRepository.findTableByName(tableName);
+    public Table getByName(String tableName) {
+        return tableRepository.findByName(tableName);
     }
 
 }

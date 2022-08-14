@@ -5,9 +5,9 @@ import java.util.List;
 import ru.dawgg.reportbuilderapi.model.table.Table;
 
 public interface TableRepository {
-    void createTable(Table table);
-    Table findTableByName(String tableName) throws SQLException;
-    List<String> showTables();
+    void create(Table table);
+    Table findByName(String tableName);
+    List<String> findAll();
     boolean isExist(String name);
-    void dropTable(String name);
+    void removeByName(String name);
 }

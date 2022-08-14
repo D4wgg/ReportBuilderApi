@@ -3,7 +3,7 @@ package ru.dawgg.reportbuilderapi.service;
 import ru.dawgg.reportbuilderapi.model.table.Table;
 
 public interface TableService {
-    void createTable(Table table);
-    void dropTable(String name);
-    Table getTableByName(String tableName);
+    void create(Table table);
+    void removeByName(String name);
+    Table getByName(String tableName);
 }

@@ -1,5 +1,7 @@
 package ru.dawgg.reportbuilderapi.model.query;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -23,13 +25,14 @@ import ru.dawgg.reportbuilderapi.model.annotation.ValidId;
 @Getter
 @Setter
 @ToString
+@JsonInclude(Include.NON_NULL)
 public class TableQuery {
 
     @ValidId
     @NotNull(message = "query id should be specified")
     @Id
-    @Column(name = "id")
-    private Integer id;
+    @Column(name = "query_id")
+    private Long queryId;
 
     @Size(max = 50)
     @NotBlank(message = "table name should be specified")

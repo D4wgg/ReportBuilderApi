@@ -1,6 +1,8 @@
 package ru.dawgg.reportbuilderapi.controller;
 
+import static org.springframework.http.HttpStatus.ACCEPTED;
 import static org.springframework.http.HttpStatus.CREATED;
+import static org.springframework.http.HttpStatus.OK;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -18,41 +20,42 @@ public class TableQueryController {
     private final TableQueryService tableQueryService;
 
     @PostMapping("/add-new-query-to-table")
-    public ResponseEntity<Void> addNewQuery(@RequestBody TableQuery request) {
-        tableQueryService.createTableQuery(request);
+    public ResponseEntity<Void> addNewQuery(@RequestBody TableQuery tableQuery) {
+        tableQueryService.create(tableQuery);
         return new ResponseEntity<>(CREATED);
     }
 
     @PutMapping("/modify-query-in-table")
-    public ResponseEntity.BodyBuilder modifyQueryInTable(@RequestBody TableQuery request) {
-//        service.update(query);
-        return ResponseEntity.ok();
+    public ResponseEntity<Void> modifyQueryInTable(@RequestBody TableQuery tableQuery) {
+        tableQueryService.update(tableQuery);
+        return new ResponseEntity<>(OK);
     }
 
     @DeleteMapping("/delete-table-query-by-id/{id}")
-    public ResponseEntity.BodyBuilder deleteTableQuery(@PathVariable("id") Integer id) {
-//        service.deleteById(Integer id);
-        return ResponseEntity.ok();
+    public ResponseEntity<Void> deleteTableQuery(@PathVariable Long id) {
+        tableQueryService.removeById(id);
+        return new ResponseEntity<>(ACCEPTED);
+    }
+
+    @GetMapping("/execute-table-query-by-id/{id}")
+    public ResponseEntity<Void> executeTableQueryById(@PathVariable Long id) {
+        tableQueryService.executeById(id);
+        return new ResponseEntity<>(CREATED);
     }
 
     @GetMapping("/get-all-queries-by-table-name/{name}")
-    public List<TableQuery> getAllQueriesByTableName(@PathVariable("name") String name) {
-//        return service.findAllByTableName(name);
-        return null;
+    public ResponseEntity<List<TableQuery>> getAllQueriesByTableName(@PathVariable String name) {
+        return ResponseEntity.ok(tableQueryService.getAllByTableName(name));
     }
 
-    @GetMapping("/get-table-query_by-id/{id}")
-    public TableQuery getQueryById(@PathVariable("id") Integer id) {
-//        return service.findById(id);
-        return null;
+    @GetMapping("/get-table-query-by-id/{id}")
+    public TableQuery getQueryById(@PathVariable Long id) {
+        return tableQueryService.getById(id);
     }
 
     @GetMapping("/get-all-table-queries")
     public List<TableQuery> getAllTableQueries() {
-//        return tableService.findAll()
-//                .stream()
-//                .flatMap(Table::getQueries);
-        return null;
+        return tableQueryService.getAll();
     }
 
 

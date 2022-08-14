@@ -1,20 +1,15 @@
 package ru.dawgg.reportbuilderapi.repository.impl;
 
-import java.sql.DatabaseMetaData;
 import java.sql.JDBCType;
 import java.sql.SQLException;
-import java.sql.SQLType;
-import java.sql.Types;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.SqlTypeValue;
 import org.springframework.stereotype.Repository;
-import ru.dawgg.reportbuilderapi.exception.InvalidFieldNameException;
-import ru.dawgg.reportbuilderapi.exception.NoSuchTableException;
+import ru.dawgg.reportbuilderapi.exception.TableNotFoundException;
 import ru.dawgg.reportbuilderapi.model.table.ColumnInfo;
 import ru.dawgg.reportbuilderapi.model.table.Table;
 import ru.dawgg.reportbuilderapi.repository.TableRepository;
@@ -26,14 +21,15 @@ public class TableRepositoryImpl implements TableRepository {
     private final JdbcTemplate jdbcTemplate;
 
     @Override
-    public List<String> showTables() {
+    public List<String> findAll() {
         return jdbcTemplate.query("show tables", (rs, rowNum) -> rs.getString("table_name"));
     }
 
     @Override
-    public Table findTableByName(String tableName) throws SQLException {
+    @SneakyThrows
+    public Table findByName(String tableName) {
 
-        if(showTables().stream().noneMatch(s -> s.equalsIgnoreCase(tableName))) {
+        if(findAll().stream().noneMatch(s -> s.equalsIgnoreCase(tableName))) {
             return Table.builder().build();
         }
 
@@ -63,7 +59,7 @@ public class TableRepositoryImpl implements TableRepository {
     }
 
     @Override
-    public void createTable(Table table) {
+    public void create(Table table) {
         jdbcTemplate.execute(
                 createTableQuery(table.getTableName(), table.getColumnInfos(), table.getPrimaryKey())
         );
@@ -78,14 +74,14 @@ public class TableRepositoryImpl implements TableRepository {
 
     @Override
     public boolean isExist(String name) {
-        return showTables().stream()
+        return findAll().stream()
                 .anyMatch(s -> s.equalsIgnoreCase(name));
     }
 
     @Override
-    public void dropTable(String name) {
+    public void removeByName(String name) {
         if (isExist(name)) {
             jdbcTemplate.execute("drop table " + name);
-        } else throw new NoSuchTableException("No such table with name: " + name);
+        } else throw new TableNotFoundException("No such table with name: " + name);
     }
 }

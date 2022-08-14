@@ -2,6 +2,7 @@ package ru.dawgg.reportbuilderapi.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
+import org.springframework.data.util.Streamable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -58,6 +59,6 @@ public class SingleQueryServiceImpl implements SingleQueryService {
 
     @Override
     public List<SingleQuery> findAll() {
-        return repository.findAll();
+        return Streamable.of(repository.findAll()).toList();
     }
 }
